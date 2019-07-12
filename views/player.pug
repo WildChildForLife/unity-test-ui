@@ -1,0 +1,29 @@
+extends default
+
+
+
+block content
+    div.container-fluid
+        h2 #{title}
+        table.table.table-dark
+            thead
+                tr
+                    each header in ['Column', 'Value']
+                        th #{header}
+            tbody
+                tr
+                    td ID
+                    td #{player.id}
+                tr
+                    td Firstname
+                    td #{player.firstname}
+                tr
+                    td Lastname
+                    td #{player.lastname}
+                tr
+                    td Email
+                    td #{player.email}
+                tr
+                    td Session ID
+                    td
+                        a(href="/sessions/" + player.sessionId) #{player.sessionId}

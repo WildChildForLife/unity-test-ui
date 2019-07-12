@@ -1,0 +1,19 @@
+extends default
+
+
+
+block content
+    div.container-fluid
+        h2 #{title}
+        table.table.table-dark
+            tr
+                each header in ['ID', 'Created At', 'Ratings']
+                    th #{header}
+
+                each session in sessions
+                    tr
+                        td
+                            a(href="/sessions" + session.id) #{session.id}
+                        td #{session.createdAt}
+                        td
+                            a(href="/ratings?sessionId=" + session.id) See the given ratings for this session

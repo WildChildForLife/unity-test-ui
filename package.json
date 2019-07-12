@@ -1,0 +1,20 @@
+{
+  "name": "unity-test-front-end-server",
+  "version": "1.0.0",
+  "description": "A simple website built with Node, Express and Pug",
+  "main": "server.js",
+  "scripts": {
+    "start": "npx nodemon server.js"
+  },
+  "author": "Youssef El Gharbaoui",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.6.0",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
+  }
+}

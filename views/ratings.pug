@@ -1,0 +1,22 @@
+extends default
+
+
+
+block content
+    div.container-fluid
+        h2 #{title}
+        input.form-control.filter-table(type="text" placeholder="Type a rate to filter with...")
+        table.table.table-dark
+            thead
+                tr
+                    each header in ['ID', 'Score', 'Session ID', 'Player ID']
+                        th #{header}
+            tbody
+                    each rating in (ratings !== undefined && ratings.length) ? ratings : [{id: '', score: '', sessionId: '', playerId: ''}]
+                        tr
+                            td #{rating.id}
+                            td - #{rating.score} -
+                            td
+                                a(href="/sessions/" + rating.sessionId) #{rating.sessionId}
+                            td
+                                a(href="/players/" + rating.playerId) #{rating.playerId}

@@ -1,0 +1,33 @@
+extends default
+
+
+
+block content
+    div.container-fluid
+        h2 #{title}
+        table.table.table-dark
+            thead
+                tr
+                    each header in ['Column', 'Value']
+                        th #{header}
+            tbody
+                tr
+                    td ID
+                    td #{session.id}
+                tr
+                    td Created At
+                    td #{session.createdAt}
+        h2 Comments
+        table.table.table-dark
+            thead
+                tr
+                    each header in ['ID', 'Created At', 'Feedback', 'Player ID']
+                        th #{header}
+            tbody
+                each comment in comments
+                    tr
+                        td #{comment.id}
+                        td #{comment.createdAt}
+                        td #{comment.feedback}
+                        td
+                            a(href="/players/" + comment.playerId) #{comment.playerId}

@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        title #{title}
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/css/style.css')
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js")
+        script(src="js/filter.js")
+    body
+        main
+            block header
+                header.header
+                    nav.nav.nav-pills.nav-fill
+                        each item in ['players', 'sessions', 'comments', 'ratings']
+                            if activeItem == item
+                                a.nav-item.nav-link.active(href="/" + item) #{item}
+                            else
+                                a.nav-item.nav-link(href="/" + item) #{item}
+            block content
+
