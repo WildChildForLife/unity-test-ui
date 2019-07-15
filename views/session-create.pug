@@ -1,0 +1,25 @@
+extends default
+
+
+
+block content
+    div.container
+        h2 #{title}
+        form(action=action, method="POST")
+            div.form-group.invisible
+                input.form-control(type="date" id="createdAt" name="createdAt")
+            button.btn.btn-primary(type="submit") Create Session
+
+        if apiResponse.length > 0
+            if apiResponse[0].error === undefined
+                h4 Success :
+                p(style="color: green;") Session succefully added with id #{apiResponse[0].id}.
+                p(style="color: green;")
+                    =JSON.stringify(apiResponse[0])
+
+            else
+                h4 Error :
+                p(style="color: red;") #{apiResponse[0].error.message}.
+                p(style="color: red;")
+                    =JSON.stringify(apiResponse[0].error)
+

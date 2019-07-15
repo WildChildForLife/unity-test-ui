@@ -3,20 +3,24 @@ extends default
 
 
 block content
-    div.container-fluid
+    - var container = (players.length !== 0) ? 'container-fluid' : 'container';
+    div(class=container)
         h2 #{title}
-        table.table.table-dark.table-hover
-            thead
-                tr
-                    each header in ['id', 'First Name', 'Last Name', 'Email', 'Session']
-                        th #{header}
-            tbody
-                each player in players
+        if players.length !== 0
+            table.table.table-dark.table-hover
+                thead
                     tr
-                        td
-                            a(href="player/" + player.id) #{player.id}
-                        td #{player.firstname}
-                        td #{player.lastname}
-                        td #{player.email}
-                        td
-                            a(href="/sessions/" + player.sessionId) #{player.sessionId}
+                        each header in ['id', 'First Name', 'Last Name', 'Email', 'Session']
+                            th #{header}
+                tbody
+                    each player in players
+                        tr
+                            td
+                                a(href="player/" + player.id) #{player.id}
+                            td #{player.firstname}
+                            td #{player.lastname}
+                            td #{player.email}
+                            td
+                                a(href="/sessions/" + player.sessionId) #{player.sessionId}
+        else
+                |             p Theres no player yet, please <a href="/players/create">create a player</a> before you can list them.

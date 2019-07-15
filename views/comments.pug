@@ -3,18 +3,22 @@ extends default
 
 
 block content
-    div.container-fluid
+    - var container = (comments.length !== 0) ? 'container-fluid' : 'container';
+    div(class=container)
         h2 #{title}
-        table.table.table-dark
-            thead
-                tr
-                    each header in ['ID', 'Created At', 'Feedback', 'Player ID']
-                        th #{header}
-            tbody
-                each comment in comments
+        if comments.length !== 0
+            table.table.table-dark
+                thead
                     tr
-                        td #{comment.id}
-                        td #{comment.createdAt}
-                        td #{comment.feedback}
-                        td
-                            a(href="/players/" + comment.playerId) #{comment.playerId}
+                        each header in ['ID', 'Created At', 'Feedback', 'Player ID']
+                            th #{header}
+                tbody
+                    each comment in comments
+                        tr
+                            td #{comment.id}
+                            td #{comment.createdAt}
+                            td #{comment.feedback}
+                            td
+                                a(href="/players/" + comment.playerId) #{comment.playerId}
+        else
+            p Theres no comment yet, please <a href="/comments/create">create a comment</a> before you can list them.

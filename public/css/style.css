@@ -1,21 +1,3 @@
-/* ==========================================================================
-   #STYLES
-   ========================================================================== */
-
-
-/**
- *
- * [1]: Inheriting box sizing slightly better best-practice
- * https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
- *
- * [2]: WordPress System font-stack
- */
-
-
-/* RESET
-   ========================================================================== */
-
-
 html {
   box-sizing: border-box;
 }
@@ -57,3 +39,33 @@ h2 {
 .filter-table{
   margin-bottom: 20px;
 }
+
+
+.btn.btn-primary {
+  margin-bottom: 60px;
+}
+
+.dropdown-menu.show {
+  background: #000;
+}
+
+.starrating > input {display: none;}  /* Remove radio buttons */
+
+.starrating > label:before {
+  content: "\f005"; /* Star */
+  margin: 2px;
+  font-size: 40px;
+  font-family: FontAwesome;
+  display: inline-block;
+}
+
+.starrating > label
+{
+  color: #222222; /* Start color when not clicked */
+}
+
+.starrating > input:checked ~ label
+{ color: #ffca08 ; } /* Set yellow color when star checked */
+
+.starrating > input:hover ~ label
+{ color: #ffca08 ;  } /* Set yellow color when star hover */

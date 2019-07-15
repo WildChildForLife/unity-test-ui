@@ -3,17 +3,21 @@ extends default
 
 
 block content
-    div.container-fluid
+    - var container = (sessions.length !== 0) ? 'container-fluid' : 'container';
+    div(class=container)
         h2 #{title}
-        table.table.table-dark
-            tr
-                each header in ['ID', 'Created At', 'Ratings']
-                    th #{header}
+        if sessions.length !== 0
+            table.table.table-dark
+                tr
+                    each header in ['ID', 'Created At', 'Ratings']
+                        th #{header}
 
-                each session in sessions
-                    tr
-                        td
-                            a(href="/sessions" + session.id) #{session.id}
-                        td #{session.createdAt}
-                        td
-                            a(href="/ratings?sessionId=" + session.id) See the given ratings for this session
+                    each session in sessions
+                        tr
+                            td
+                                a(href="/sessions" + session.id) #{session.id}
+                            td #{session.createdAt}
+                            td
+                                a(href="/ratings?sessionId=" + session.id) See the given ratings for this session
+        else
+            p Theres no session yet, please <a href="/sessions/create">create a session</a> before you can list them.

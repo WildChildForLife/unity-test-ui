@@ -2,21 +2,28 @@ doctype html
 html
     head
         title #{title}
-        link(rel='stylesheet', href='/css/bootstrap.min.css')
-        link(rel='stylesheet', href='/css/style.css')
+        link(type="text/css" rel='stylesheet', href='/css/bootstrap.min.css')
+        link(type="text/css" rel='stylesheet', href='/css/style.css')
         meta(name="viewport" content="width=device-width, initial-scale=1")
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
-        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js")
-        script(src="js/filter.js")
+        script(src="/js/bootstrap.min.js")
+        script(src="/js/filter.js")
     body
         main
             block header
                 header.header
-                    nav.nav.nav-pills.nav-fill
-                        each item in ['players', 'sessions', 'comments', 'ratings']
-                            if activeItem == item
-                                a.nav-item.nav-link.active(href="/" + item) #{item}
-                            else
-                                a.nav-item.nav-link(href="/" + item) #{item}
-            block content
+                    nav.nav.nav-pills.nav-fill.navbar
+                        a.navbar-brand(href="https://unity.com")
+                            img(src="../images/unity-logo.svg" style="width: 100px")
 
+                        each item, index in {Players: {List: '/players', Create: '/players/create'}, Sessions: {List: '/sessions', Create: '/sessions/create'}, Comments: {List: '/comments', Create: '/comments/create'}, Ratings: {List: '/ratings', Create: '/ratings/create'}}
+                            div.dropdown
+                                button.btn.dropdown-toggle(type="button" data-toggle="dropdown") #{index}
+                                div.dropdown-menu(aria-labelledby="dropdownMenuButton")
+                                    each subItem, subIndex in item
+                                        a.dropdown-item(href=subItem) #{subIndex}
+                            //if activeItem == item
+                            //    a.nav-item.nav-link.active(href="/" + item) #{item}
+                            //else
+                            //    a.nav-item.nav-link(href="/" + item) #{item}
+                block content

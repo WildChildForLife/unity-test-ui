@@ -9,10 +9,15 @@
   "author": "Youssef El Gharbaoui",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
     "express": "^4.16.3",
+    "express-flash": "0.0.2",
+    "express-session": "^1.16.2",
     "moment": "^2.24.0",
     "node-fetch": "^2.6.0",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.0"

@@ -1,0 +1,46 @@
+extends default
+
+
+
+block content
+    div.container
+        h2 #{title}
+        if sessions.length === 0 || players.length === 0
+            if sessions.length === 0
+                p Theres no session yet, please <a href="/session/create">create a session</a> before you add a comment.
+            if players.length === 0
+                p Theres no comment yet, please <a href="/player/create">create a player</a> before you add a comment.
+        else
+            form(action=action, method="POST")
+                div.form-group.invisible
+                    input.form-control(type="date" id="createdAt" name="createdAt")
+                div.form-group
+                    label(for="feedback") Feedback :
+                    textarea.form-control(type="text" id="feedback" name="feedback" placeholder="Your feedback" required)
+
+
+                div.form-group
+                    label(for="session") Player :
+                    select.form-control(id="session" name="playerId" required)
+                        each player in players
+                            option(value=player.id) #{player.firstname} #{player.lastname}
+                div.form-group
+                    label(for="session") Session :
+                    select.form-control(id="session" name="sessionId" required)
+                        each session in sessions
+                            option(value=session.id) #{session.id}
+                button.btn.btn-primary(type="submit") Create Comment
+
+        if apiResponse.length > 0
+            if apiResponse[0].error === undefined
+                h4 Success :
+                p(style="color: green;") Player succefully added with id #{apiResponse[0].id}.
+                p(style="color: green;")
+                    =JSON.stringify(apiResponse[0])
+
+            else
+                h4 Error :
+                p(style="color: red;") #{apiResponse[0].error.message}.
+                p(style="color: red;")
+                    =JSON.stringify(apiResponse[0].error)
+

@@ -1,0 +1,47 @@
+extends default
+
+
+
+block content
+    div.container
+        h2 #{title}
+        if sessions.length === 0 || players.length === 0
+            if sessions.length === 0
+                p Theres no session yet, please <a href="/session/create">create a session</a> before you add a comment.
+            if players.length === 0
+                p Theres no comment yet, please <a href="/player/create">create a player</a> before you add a comment.
+        else
+            form(action=action, method="POST")
+                div.form-group
+                    label(for="score") Score :
+                    div.starrating.risingstar.d-flex.justify-content-center.flex-row-reverse
+                        each star in [5, 4, 3, 2, 1]
+                            - var starId = 'star' + star;
+                            input(type="radio" id=starId name="score" value=star required)
+                            label(for=starId title=star + " star") #{star}
+
+                div.form-group
+                    label(for="session") Player :
+                    select.form-control(id="session" name="playerId" required)
+                        each player in players
+                            option(value=player.id) #{player.firstname} #{player.lastname}
+                div.form-group
+                    label(for="session") Session :
+                    select.form-control(id="session" name="sessionId" required)
+                        each session in sessions
+                            option(value=session.id) #{session.id}
+                button.btn.btn-primary(type="submit") Create Comment
+
+        if apiResponse.length > 0
+            if apiResponse[0].error === undefined
+                h4 Success :
+                p(style="color: green;") Player succefully added with id #{apiResponse[0].id}.
+                p(style="color: green;")
+                    =JSON.stringify(apiResponse[0])
+
+            else
+                h4 Error :
+                p(style="color: red;") #{apiResponse[0].error.message}.
+                p(style="color: red;")
+                    =JSON.stringify(apiResponse[0].error)
+
