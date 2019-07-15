@@ -1,7 +1,7 @@
 // Fetch (for the API)
 const fetch = require('node-fetch');
 
-module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachableException, datesFormat, parseRequest) => {
+module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, datesFormat, parseRequest) => {
     // GET : RATINGS
     app.get('/ratings', (req, res) => {
         fetch(apiUrl + '/ratings').then((apiResponse) => apiResponse.json()).then((apiResponse) => {
@@ -16,7 +16,7 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
                 ratings: apiResponse,
             });
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
     });
 
@@ -27,12 +27,15 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
         fetch(apiUrl + '/ratings', {
             method: 'POST',
             body: JSON.stringify(bodyRequest),
-            headers: {'Content-Type': 'application/json'}
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + httpRequest.session.jwtToken,
+            }
         }).then(responseApi => responseApi.json()).then(responseApi => {
             httpRequest.flash('apiResponse', responseApi);
             httpResponse.redirect('/ratings/create');
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
 
     });
@@ -49,10 +52,10 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
                     apiResponse: req.flash('apiResponse'),
                 });
             }).catch((e) => {
-                throw new Error(apiUnreachableException);
+                throw new Error(e.message);
             });
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
     });
 
@@ -65,7 +68,7 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
                 ratings: apiResponse,
             });
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
     });
 }

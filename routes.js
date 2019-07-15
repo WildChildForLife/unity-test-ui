@@ -24,10 +24,11 @@ module.exports = (app) => {
         return bodyRequest;
     };
 
-    const players = require("./routes/players")(app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachableException, datesFormat, parseRequest);
-    const sessions = require("./routes/sessions")(app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachableException, datesFormat, parseRequest);
-    const comments = require("./routes/comments")(app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachableException, datesFormat, parseRequest);
-    const ratings = require("./routes/ratings")(app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachableException, datesFormat, parseRequest);
+    require("./routes/login")(app, apiProtocole, apiBaseUrl, apiPort, apiUrl, datesFormat, parseRequest);
+    require("./routes/players")(app, apiProtocole, apiBaseUrl, apiPort, apiUrl, datesFormat, parseRequest);
+    require("./routes/sessions")(app, apiProtocole, apiBaseUrl, apiPort, apiUrl, datesFormat, parseRequest);
+    require("./routes/comments")(app, apiProtocole, apiBaseUrl, apiPort, apiUrl, datesFormat, parseRequest);
+    require("./routes/ratings")(app, apiProtocole, apiBaseUrl, apiPort, apiUrl, datesFormat, parseRequest);
 };
 
 

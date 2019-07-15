@@ -1,0 +1,25 @@
+extends default
+
+
+
+block content
+    div.container
+        h2 #{title}
+            form(action=action, method="POST")
+                div.form-group
+                    label(for="email") Email :
+                    input.form-control(type="email" id="email" name="email" placeholder="Your Email" required)
+                div.form-group
+                    label(for="password") Password :
+                    input.form-control(type="password" id="password" name="password" placeholder="Your Password" required)
+                div.alert.alert-light(role="alert")
+                    p PS : I have injected a default User (and of course you can add your own Users which are considered as OPs from the API Server UI):
+                    ul
+                        li Email : john-riccitiello@unity.com
+                        li Password : very-secured-password
+                button.btn.btn-primary(type="submit") Login
+
+        if apiResponse !== undefined && apiResponse.length > 0
+            h4 Error :
+            p(style="color: red;") #{apiResponse}.
+

@@ -10,7 +10,7 @@ block content
             table.table.table-dark
                 thead
                     tr
-                        each header in ['ID', 'Created At', 'Feedback', 'Player ID']
+                        each header in ['ID', 'Created At', 'Feedback', 'Player ID', 'Session ID']
                             th #{header}
                 tbody
                     each comment in comments
@@ -20,5 +20,7 @@ block content
                             td #{comment.feedback}
                             td
                                 a(href="/players/" + comment.playerId) #{comment.playerId}
+                            td
+                                a(href="/sessions/" + comment.sessionId) #{comment.sessionId}
         else
             p Theres no comment yet, please <a href="/comments/create">create a comment</a> before you can list them.

@@ -1,7 +1,7 @@
 // Fetch (for the API)
 const fetch = require('node-fetch');
 
-module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachableException, datesFormat, parseRequest) => {
+module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, datesFormat, parseRequest) => {
     // GET : PLAYERS
     app.get('/players', (req, res) => {
         fetch(apiUrl + '/players').then((apiResponse) => apiResponse.json()).then((apiResponse) => {
@@ -11,7 +11,7 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
                 players: apiResponse
             });
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
     });
 
@@ -22,12 +22,15 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
         fetch(apiUrl + '/players', {
             method: 'POST',
             body: JSON.stringify(bodyRequest),
-            headers: {'Content-Type': 'application/json'}
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + httpRequest.session.jwtToken,
+            }
         }).then(responseApi => responseApi.json()).then(responseApi => {
             httpRequest.flash('apiResponse', responseApi);
             httpResponse.redirect('/players/create');
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
 
     });
@@ -42,7 +45,7 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
                 apiResponse: req.flash('apiResponse'),
             });
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
     });
 
@@ -55,7 +58,7 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
                 player: apiResponse
             });
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
     });
 };

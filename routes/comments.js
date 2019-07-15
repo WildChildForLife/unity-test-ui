@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 // Dates Handle
 const moment = require('moment');
 
-module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachableException, datesFormat, parseRequest) => {
+module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, datesFormat, parseRequest) => {
     // GET : COMMENTS
     app.get('/comments', (req, res) => {
         fetch(apiUrl + '/comments').then((apiResponse) => apiResponse.json()).then((apiResponse) => {
@@ -19,7 +19,7 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
                 comments: apiResponse,
             });
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
     });
 
@@ -30,12 +30,15 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
         fetch(apiUrl + '/comments', {
             method: 'POST',
             body: JSON.stringify(bodyRequest),
-            headers: { 'Content-Type': 'application/json'}
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + httpRequest.session.jwtToken,
+            }
         }).then(responseApi => responseApi.json()).then(responseApi => {
             httpRequest.flash('apiResponse', responseApi);
             httpResponse.redirect('/comments/create');
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
 
     });
@@ -52,10 +55,10 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
                     apiResponse: req.flash('apiResponse'),
                 });
             }).catch((e) => {
-                throw new Error(apiUnreachableException);
+                throw new Error(e.message);
             });
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
     });
 
@@ -68,7 +71,7 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
                 comment: apiResponse,
             });
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
     });
 };

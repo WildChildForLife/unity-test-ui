@@ -22,8 +22,15 @@ html
                                 div.dropdown-menu(aria-labelledby="dropdownMenuButton")
                                     each subItem, subIndex in item
                                         a.dropdown-item(href=subItem) #{subIndex}
+                        if username
+                            a(href="/logout") Logout
+                            span Hello <span style="color: blue; text-transform: capitalize;">#{username}</span>
+                        else
+                            a(href="/login") Login
+
                             //if activeItem == item
                             //    a.nav-item.nav-link.active(href="/" + item) #{item}
                             //else
                             //    a.nav-item.nav-link(href="/" + item) #{item}
+
                 block content

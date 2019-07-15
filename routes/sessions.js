@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 // Dates Handle
 const moment = require('moment');
 
-module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachableException, datesFormat, parseRequest) => {
+module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, datesFormat, parseRequest) => {
     // GET : SESSIONS
     app.get('/sessions', (req, res) => {
         fetch(apiUrl + '/sessions').then((apiResponse) => apiResponse.json()).then((apiResponse) => {
@@ -19,7 +19,7 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
                 sessions: apiResponse
             });
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
     });
 
@@ -30,12 +30,15 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
         fetch(apiUrl + '/sessions', {
             method: 'POST',
             body: JSON.stringify(bodyRequest),
-            headers: {'Content-Type': 'application/json'}
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + httpRequest.session.jwtToken,
+            }
         }).then(responseApi => responseApi.json()).then(responseApi => {
             httpRequest.flash('apiResponse', responseApi);
             httpResponse.redirect('/sessions/create');
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
 
     });
@@ -70,10 +73,10 @@ module.exports = (app, apiProtocole, apiBaseUrl, apiPort, apiUrl, apiUnreachable
                     comments: apiResponseComments,
                 });
             }).catch((e) => {
-                throw new Error(apiUnreachableException);
+                throw new Error(e.message);
             });
         }).catch((e) => {
-            throw new Error(apiUnreachableException);
+            throw new Error(e.message);
         });
     });
 };

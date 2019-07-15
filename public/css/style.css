@@ -69,3 +69,15 @@ h2 {
 
 .starrating > input:hover ~ label
 { color: #ffca08 ;  } /* Set yellow color when star hover */
+
+.alert.alert-light{
+  font-size: 15px;
+}
+
+.alert.alert-light ul {
+  margin-left: 40px;
+}
+
+label {
+  font-size: 16px;
+}
