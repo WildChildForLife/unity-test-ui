@@ -17,17 +17,20 @@ block content
                 tr
                     td Created At
                     td #{session.createdAt}
-        h2 Comments
-        table.table.table-dark
-            thead
-                tr
-                    each header in ['ID', 'Created At', 'Feedback', 'Player ID']
-                        th #{header}
-            tbody
-                each comment in comments
+        if comments.length !== 0
+            h2 Comments
+            table.table.table-dark
+                thead
                     tr
-                        td #{comment.id}
-                        td #{comment.createdAt}
-                        td #{comment.feedback}
-                        td
-                            a(href="/players/" + comment.playerId) #{comment.playerId}
+                        each header in ['ID', 'Created At', 'Feedback', 'Player ID']
+                            th #{header}
+                tbody
+                    each comment in comments
+                        tr
+                            td #{comment.id}
+                            td #{comment.createdAt}
+                            td #{comment.feedback}
+                            td
+                                a(href="/players/" + comment.playerId) #{comment.playerId}
+        else
+            p Theres no comment yet for the session id #{session.id}, would you want to <a href="/comments/create">add a comment ?</a>

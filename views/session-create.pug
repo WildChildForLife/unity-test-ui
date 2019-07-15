@@ -14,12 +14,14 @@ block content
             if apiResponse[0].error === undefined
                 h4 Success :
                 p(style="color: green;") Session succefully added with id #{apiResponse[0].id}.
+                h5 HTTP Response :
                 p(style="color: green;")
                     =JSON.stringify(apiResponse[0])
 
             else
                 h4 Error :
                 p(style="color: red;") #{apiResponse[0].error.message}.
+                h5 HTTP Response :
                 p(style="color: red;")
                     =JSON.stringify(apiResponse[0].error)
 

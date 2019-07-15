@@ -17,7 +17,7 @@ block content
                     div.starrating.risingstar.d-flex.justify-content-center.flex-row-reverse
                         each star in [5, 4, 3, 2, 1]
                             - var starId = 'star' + star;
-                            input(type="radio" id=starId name="score" value=star required)
+                            input(type="radio" id=starId name="score" value=star required checked)
                             label(for=starId title=star + " star") #{star}
 
                 div.form-group
@@ -34,14 +34,16 @@ block content
 
         if apiResponse.length > 0
             if apiResponse[0].error === undefined
-                h4 Success :
+                h4(style="text-decoration: underline") Success :
                 p(style="color: green;") Player succefully added with id #{apiResponse[0].id}.
+                h5 HTTP Response :
                 p(style="color: green;")
                     =JSON.stringify(apiResponse[0])
 
             else
-                h4 Error :
+                h4(style="text-decoration: underline") Error :
                 p(style="color: red;") #{apiResponse[0].error.message}.
+                h5 HTTP Response :
                 p(style="color: red;")
                     =JSON.stringify(apiResponse[0].error)
 

@@ -7,9 +7,9 @@ block content
         h2 #{title}
         if sessions.length === 0 || players.length === 0
             if sessions.length === 0
-                p Theres no session yet, please <a href="/session/create">create a session</a> before you add a comment.
+                p Theres no session yet, please <a href="/sessions/create">create a session</a> before you add a comment.
             if players.length === 0
-                p Theres no comment yet, please <a href="/player/create">create a player</a> before you add a comment.
+                p Theres no comment yet, please <a href="/players/create">create a player</a> before you add a comment.
         else
             form(action=action, method="POST")
                 div.form-group.invisible
@@ -33,14 +33,16 @@ block content
 
         if apiResponse.length > 0
             if apiResponse[0].error === undefined
-                h4 Success :
+                h4(style="text-decoration: underline") Success :
                 p(style="color: green;") Player succefully added with id #{apiResponse[0].id}.
+                h5 HTTP Response :
                 p(style="color: green;")
                     =JSON.stringify(apiResponse[0])
 
             else
-                h4 Error :
+                h4(style="text-decoration: underline") Error :
                 p(style="color: red;") #{apiResponse[0].error.message}.
+                h5 HTTP Response :
                 p(style="color: red;")
                     =JSON.stringify(apiResponse[0].error)
 

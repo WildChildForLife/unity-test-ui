@@ -16,11 +16,11 @@ block content
                     each player in players
                         tr
                             td
-                                a(href="player/" + player.id) #{player.id}
+                                a(href="players/" + player.id) #{player.id}
                             td #{player.firstname}
                             td #{player.lastname}
                             td #{player.email}
                             td
                                 a(href="/sessions/" + player.sessionId) #{player.sessionId}
         else
-                |             p Theres no player yet, please <a href="/players/create">create a player</a> before you can list them.
+            p Theres no player yet, please <a href="/players/create">create a player</a> before you can list them.
