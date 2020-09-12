@@ -16,7 +16,7 @@
     "express-session": "^1.16.2",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "pug": "^2.0.3",
     "winston": "^3.2.1"
   },
